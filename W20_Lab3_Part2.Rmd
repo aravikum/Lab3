@@ -28,33 +28,8 @@ While learning how to do statistical tests in this lab, we are also going to beg
 * change in microbial community composition and/or microbial diversity 
 * correlations between fermentation products and the microbiota 
 
-The examples today will look at the change in fermentation products across study weeks (before and during supplement consumption), and between the different types of fiber supplements. Run the code below to import a curated version of the scfa data, in which weekly averages (mmol/kg SCFA) have already been calculated. 
-```{r}
-lab3_df <- read_delim(file = "curated_data/Lab3_data.txt", 
-                      delim = "\t", escape_double = FALSE, 
-                      trim_ws = TRUE, na=c("NA"),
-                      col_names = TRUE, 
-                      col_types = cols(participant_id = col_character(),
-                                       study_week = col_character(),
-                                       semester = col_character(),
-                                       supplement_consumed = col_character(),
-                                       quantity_compliant = col_character(),
-                                       frequency = col_character(),
-                                       pH_median = col_double(),
-                                       pH_mean = col_double(),
-                                       bristol_median = col_double(),
-                                       bristol_mean = col_double(),
-                                       blood_glucose_median = col_double(),
-                                       blood_glucose_mean = col_double(),
-                                       acetate_median = col_double(),
-                                       acetate_mean = col_double(),
-                                       butyrate_median = col_double(),
-                                       butyrate_mean = col_double(),
-                                       propionate_median = col_double(),
-                                       propionate_mean = col_double())
-                      )
-```
-
+The examples today will look at the change in fermentation products across study weeks (before and during supplement consumption), and between the different types of fiber supplements. Run the code below to import a curated version of the scfa data,cc in which weekly averages (mmol/kg SCFA) have already been calculated. 
+ccccc
 # 1 continuous and 1 categorical (discrete) variable 
 
 The first statistical test we will use is to compare means of two groups, for example mean SCFA concentration before and during starch supplement. In this example, the SCFA concentration is the continuous variable (it can be any number that is biologically possible), and the study week (week1/before and week3/during) is the categorical variable. In this lesson we are going to use the term categorical, however these are called discrete on the ggplot cheatsheet. 
@@ -75,6 +50,8 @@ butyrate_long <- lab3_df %>%
          supplement_consumed == "BRMPS" | supplement_consumed == "LOODAT",
          quantity_compliant == "yes") %>%
   drop_na(butyrate_mean) #drop any samples with NA in named columns
+dim(lab3_df)
+dim(butyrate_long)
 ```
 Check the dimension of the starting data frame (lab3_df) and the product data frame (butyrate_long), do you have fewer rows and columns in the product data frame? Is this the result you would expect? Try to develop a habit of these sort of sanity checks, to make sure your code is working as intended. 
 ```{r}
@@ -83,7 +60,7 @@ butyrate_long %>%
   filter(study_week == "week3") %>%
   ggplot(aes(x = frequency, 
              y = butyrate_mean)) + 
-  geom_violin() + geom_jitter()
+  geom_violin(aes(color = frequency)) + geom_jitter(aes(color = frequency))
 ```
 
 In the plots created above, notice the widest part of the twice daily (2xdaily) category appears slightly higher than once daily (1xdaily). This means most of the data points in the 2x group are of a higher concentration that those in the 1x group. However the top of the violin in the 1x group is higher than the 2x, indicating the 1x group's maximum value is greater. Discuss with your neighbor, do you think the butyrate concentrations of these two groups (1x vs. 2x) are different? 
