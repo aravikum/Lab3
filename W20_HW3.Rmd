@@ -145,7 +145,7 @@ dim(acetate_long)
 
 What are the dimensions of the data frame?
 
-7 columns and 335 rows
+7 columns and 133 rows
 
 ```{r}
 # acetate plot
